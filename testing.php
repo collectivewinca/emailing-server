@@ -16,156 +16,45 @@ if (!isset($_SESSION['loggedin'])) {
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <style>
-       .container {
-           display: flex;
-           flex-direction: column;
-           padding: 10px 10px;
-           color:#2f3947;
-           gap: 4px;
-       }
-       .title-div {
-           font-size: 24px;  /* Adjust font size as needed */
-           font-weight: bold;
-           margin-bottom: 10px;
-       }
-       .sub-container {
-           display: flex;
-           flex-direction: row;
-           gap: 10px;
-       }
-       .left-div, .right-div {
-           height: 300px; 
-           border: 1px solid #2f3947;
-           border-top: 4px solid #2f3947;
-           border-radius: 6px;
-       }
-       .left-div {
-           width: 22%;
-       }
-       .right-div {
-           width: 80%;
-           display: flex;
-           height: 100%;
-           flex-direction: column;
-       }
-       .left-title, .right-title{
-        width: 100%;
-        padding: 3px 8px;
-        font-weight: 600;
-        border-bottom: 1px solid lightgray 
-       }
-       .form-container {
-           width: 100%;
-           margin: 0 auto;
-           padding: 20px 30px;
-           display: flex;
-           flex-wrap: wrap;
-           gap: 10px;
-       }
-
-       .form-group {
-           flex: 1 1 calc(50% - 10px); /* Two inputs per row */
-           margin-bottom: 15px;
-       }
-
-       @media (max-width: 768px) {
-           .form-group {
-               flex: 1 1 100%; /* One input per row on smaller screens */
-           }
-       }
-
-       .form-group label {
-           display: block;
-           margin-bottom: 5px;
-           font-size: 0.9rem;
-           color: #2f3947;
-       }
-
-       
-
-       input[type="text"],
-       select,
-       textarea {
-           width: 100%;
-           padding: 8px;
-           border: 1px solid #ccc;
-           border-radius: 4px;
-           font-size: 0.85rem;
-       }
-
-       /* .radio-group input[type="radio"] {
-           display: none;
-       } */
-       .radio-group{
-              display: flex;
-              align-items: center;
-       }
-
-       .radio-group label {
-           display: inline-block;
-           padding: 3px 10px;
-           background-color: #f0f0f0;
-           border-radius: 40px;
-           cursor: pointer;
-           padding-bottom: 5px
-       }
-
-       .radio-group input[type="radio"]:checked + label {
-           background-color: #0060df;
-           color: #fff;
-       }
-       .form-textarea {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.form-textarea label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    color: #2f3947;
-}
-
-.form-textarea textarea {
-    width: calc(100% - 16px); /* Adjust for the textarea padding */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    
-}
-
-.radio-group {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center; /* Align radio buttons and labels horizontally */
-}
-
-.radio-group label {
-    margin-right: 10px;
-
-}
-
-.form-textarea button.submitBtn {
-    padding: 8px 15px;
-    background-color: #2f3947;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 0.85rem;
-    margin: 0 auto; /* Center the button */
-    display: block; /* Ensure it takes up full width */
-}
-
-
-.form-textarea button.submitBtn:hover {
-    background-color: #000;
-}
-
-   </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('#sendmailsbutton').click(function() {
+            $(document).prop('title', 'Processing...');
+            // CustomNotify("INFO",'<i class="fa fa-spin fa-spinner"></i> Processing...');
+            var ipsarray = [];
+            $.each($("input[name='ipaddress']:checked"), function(){ 
+                ipsarray.push($(this).val());                    
+            });
+            $('.processing').show(0);
+            $('.sendbtn').hide(0);
+            $('.killbtn').show(0);
+            var formData = new FormData($('#sendmails')[0]);
+            formData.append('serverips', ipsarray);
+            $.ajax({
+                url: '/actions/sendtesting.php',
+                type: 'POST',
+                xhr: function() { 
+                    var myXhr = $.ajaxSettings.xhr();
+                    return myXhr;
+                },
+                enctype: 'multipart/form-data',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: formData,
+            })
+            .done(function(data) {
+                $(document).prop('title', 'Testing Portal');
+                $('#mailsendcnt').html(data);
+            })
+            .fail(function() {
+                $(document).prop('title', 'Testing Portal');
+            });
+            return false;
+        });
+    });
+    </script>
 </head>
 <body class="loggedin">
 <div class="">
@@ -178,10 +67,11 @@ if (!isset($_SESSION['loggedin'])) {
    <div class="right-div">
      <div class="right-title">Form</div>
      <div class="form-container">
-        <div class="form-group">
-            <label for="esubject">Subject</label>
-            <input type="text" id="esubject" required placeholder="Enter Subject Of Email" name="esubject">
-        </div>
+        <form id="sendmails" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="esubject">Subject</label>
+                <input type="text" id="esubject" required placeholder="Enter Subject Of Email" name="esubject">
+            </div>
         <div class="form-group">
             <label for="efrom">From Email</label>
             <input type="text" id="efrom" required placeholder="Sender Email" name="efrom">
@@ -254,8 +144,9 @@ Content-Type: text/html</textarea>
             <textarea id="negativehtml" placeholder="Negative" style="height: 15rem;" name="negativehtml"></textarea>
         </div>
         <div class="form-textarea">
-            <button class="submitBtn" id="sendmailsbutton" name="sendemails">Submit</button>
+                <button class="submitBtn" id="sendmailsbutton" name="sendemails">Submit</button>
         </div>
+</form>
      </div>
  </div>
 </div>
