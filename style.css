@@ -4,7 +4,7 @@
     font-size: 16px;
 }
 body {
-    background-color: #435165;
+    background-color: #ffffff;
 }
 .login {
     width: 400px;
@@ -94,7 +94,7 @@ body {
     color: #eaebed;
 }
 body.loggedin {
-    background-color: #f3f4f7;
+    background-color: #ffffff;
 }
 .content {
     width: 1000px;
@@ -125,3 +125,4 @@ body.loggedin {
     padding: 5px;
     margin: 0 0 10px 0;
 }
+

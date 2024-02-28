@@ -23,6 +23,9 @@ $stmt->bind_result($password, $email);
 $stmt->fetch();
 $stmt->close();
 ?>
+
+<?php include 'sidebar.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,18 +43,11 @@ $stmt->close();
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: black; /* Change icon color to black */
+            color: #2f3947; /* Change icon color to black */
         }
     </style>
 </head>
 <body class="loggedin">
-<nav class="navtop">
-    <div >
-        <h1><a href="home.php"><h1>Emailing Server</h1></a></h1>
-        <a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-        <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
-    </div>
-</nav>
 <div class="content">
     <h2>Profile Page</h2>
     <div>
