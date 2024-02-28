@@ -17,6 +17,7 @@ if (!isset($_SESSION['loggedin'])) {
     <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
     <script>
     $(document).ready(function(){
         $('#sendmailsbutton').click(function() {
@@ -66,8 +67,8 @@ if (!isset($_SESSION['loggedin'])) {
      </div>
    <div class="right-div">
      <div class="right-title">Form</div>
-     <div class="form-container">
-        <form id="sendmails" method="post" enctype="multipart/form-data">
+     <div >
+        <form id="sendmails" class="form-container" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="esubject">Subject</label>
                 <input type="text" id="esubject" required placeholder="Enter Subject Of Email" name="esubject">
