@@ -53,6 +53,7 @@ label {
 }
 
 </style>
+
 <body>
 <div class="container">
  <div class="title-div">Testing Portal</div>
@@ -64,6 +65,7 @@ label {
    <div class="right-div">
      <div class="right-title">Form</div>
      <div class="mb-4">
+        <form id="sendMailForm" method="post" action="send.php">
         <div class="row ml-1 mr-1 text-center">
                 <div class="form-group">
                 <label>Sending Mode</label><br>
@@ -138,7 +140,7 @@ label {
         <div class="row ml-1 mr-1 ">
         <div class="form-group col-12 ">
         <label>Test Mail</label>
-        <textarea class="form-control" rows="4" id="test_email" name="test_email" placeholder="Put Test Email Id here (Max 4 Allowed)"></textarea>
+        <input class="form-control" rows="4" id="test_email" name="test_email" placeholder="Put Test Email Id here"></input>
         <span class="text-danger customError error_test_email"></span>
         </div> 
         </div>
@@ -214,7 +216,7 @@ label {
                 <div class="form-group col-sm-6">
                     <!-- Content for the second half-width form group -->
                     <label>Count</label>
-                    <input type="text" class="form-control" id="limit" name="limit" value="100" placeholder="Enter Mail Limit" fdprocessedid="mx2cdp">
+                    <input type="text" class="form-control" id="count" name="count" value="100" placeholder="Enter Mail Limit" fdprocessedid="mx2cdp">
                     <span class="text-danger customError error_limit"></span>
                 </div>
             </div>
@@ -239,14 +241,33 @@ label {
             <span class="text-danger customError error_plain_text"></span>
         </div> 
         </div>
-            <div class="row ml-1 mr-1">
-                <button type="button" class="btn btn-block btn-success btnSendMail" fdprocessedid="skv8yh">SEND</button>
-            </div>     
+        <div class="row ml-1 mr-1">
+            <div class="form-group col-12">
+                <button type="submit" class="btn btn-block btn-success btnSendMail" fdprocessedid="skv8yh">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                    <span class="ml-2">SEND</span>
+                </button>
+            </div>
+        </div>   
+        </form> 
         </div>
    </div>
  </div>
 </div>
 </body>
+<script>
+    $(document).ready(function () {
+    $('#sendMailForm').submit(function () {
+        // Disable the button and show loading spinner
+        $('.btnSendMail').prop('disabled', true);
+        $('.btnSendMail').find('.spinner-border').show();
+
+        // Submit the form
+        return true;
+    });
+});
+
+</script>
 </html>
 <!-- 
         <div class="row ml-4  mr-4">

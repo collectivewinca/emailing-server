@@ -202,9 +202,9 @@ body.active .wrapper .section{
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="logs.php">
                         <span class="icon"><i class="fas fa-boxes"></i></span>
-                        <span class="item">Inventory</span>
+                        <span class="item">Logs</span>
                     </a>
                 </li>
                 <li>
