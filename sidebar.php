@@ -232,9 +232,9 @@ body.active .wrapper .section{
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="sendsmtp.php">
                         <span class="icon"><i class="fas fa-user-shield"></i></span>
-                        <span class="item">File Suppress</span>
+                        <span class="item">Gmail SMTP</span>
                     </a>
                 </li>
                 <li>
