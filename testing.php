@@ -68,7 +68,16 @@ if (!isset($_SESSION['loggedin'])) {
    <div class="right-div">
      <div class="right-title">Form</div>
      <div >
+        
         <form id="sendmails" class="form-container" method="post" enctype="multipart/form-data">
+        <div class="" style="width: 100%; text-align:center;">
+            <label for="sending_type" style="font-weight: 600;">Sending Type</label><br>
+            <input type="radio" name="sending_type" id="sending_type_test" value="test" style="margin-right: 5px;" checked>
+            <label for="sending_type_test">Test</label>
+            <input type="radio" name="sending_type" id="sending_type_bulk" value="bulk" style="margin-left: 20px;">
+            <label for="sending_type_bulk">Bulk</label>
+        </div>
+
             <div class="form-group">
                 <label for="esubject">Subject</label>
                 <input type="text" id="esubject" required placeholder="Enter Subject Of Email" name="esubject">
@@ -117,6 +126,32 @@ if (!isset($_SESSION['loggedin'])) {
                 <option value="5000000">5000000</option>
             </select>
         </div>
+        
+        <div class="form-group">
+            <label for="data_file">Data File</label>
+            <select name="data_file" id="data_file" class="form-control">
+                <?php
+                // Directory containing the files
+                $directory = 'emails-folder';
+
+                // Get all files in the directory
+                $files = scandir($directory);
+
+                // Remove '.' and '..' from the list
+                $files = array_diff($files, array('.', '..'));
+
+                // Iterate over the files and create options for the dropdown
+                foreach ($files as $file) {
+                    echo '<option value="' . $file . '">' . $file . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="count">Count</label>
+            <input type="text" id="count" name="count" placeholder="Enter Mail Limit">
+        </div>
         <div class="form-textarea">
             <label for="headerstext">Enter Headers Each In New Line</label>
             <textarea required id="headerstext" style="height: 15rem;" placeholder="Enter Headers one in a line" name="headerstext">MIME-Version: 1.0
@@ -144,9 +179,8 @@ Content-Type: text/html</textarea>
         <div class="form-textarea">
             <textarea id="negativehtml" placeholder="Negative" style="height: 15rem;" name="negativehtml"></textarea>
         </div>
-        <div class="form-textarea">
-                <button class="submitBtn" id="sendmailsbutton" name="sendemails">Submit</button>
-        </div>
+        <button class="submitBtn" id="sendmailsbutton" name="sendemails">Submit</button>
+
 </form>
      </div>
  </div>
