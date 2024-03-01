@@ -226,7 +226,7 @@ body.active .wrapper .section{
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="production.php">
                         <span class="icon"><i class="fas fa-chart-line"></i></span>
                         <span class="item">Production</span>
                     </a>
