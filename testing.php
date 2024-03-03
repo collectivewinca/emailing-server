@@ -21,17 +21,7 @@ if (!isset($_SESSION['loggedin'])) {
     <script>
     $(document).ready(function(){
         $('#sendmailsbutton').click(function() {
-            $(document).prop('title', 'Processing...');
-            // CustomNotify("INFO",'<i class="fa fa-spin fa-spinner"></i> Processing...');
-            var ipsarray = [];
-            $.each($("input[name='ipaddress']:checked"), function(){ 
-                ipsarray.push($(this).val());                    
-            });
-            $('.processing').show(0);
-            $('.sendbtn').hide(0);
-            $('.killbtn').show(0);
-            var formData = new FormData($('#sendmails')[0]);
-            formData.append('serverips', ipsarray);
+           
             $.ajax({
                 url: '/actions/sendtesting.php',
                 type: 'POST',
@@ -69,7 +59,7 @@ if (!isset($_SESSION['loggedin'])) {
      <div class="right-title">Form</div>
      <div >
         
-        <form id="sendmails" class="form-container" method="post" enctype="multipart/form-data">
+        <form id="sendmails" class="form-container" action="testmailipwisev2.php" method="post" enctype="multipart/form-data">
         <div class="" style="width: 100%; text-align:center;">
             <label for="sending_type" style="font-weight: 600;">Sending Type</label><br>
             <input type="radio" name="sending_type" id="sending_type_test" value="test" style="margin-right: 5px;" checked>
@@ -179,7 +169,7 @@ Content-Type: text/html</textarea>
         <div class="form-textarea">
             <textarea id="negativehtml" placeholder="Negative" style="height: 15rem;" name="negativehtml"></textarea>
         </div>
-        <button class="submitBtn" id="sendmailsbutton" name="sendemails">Submit</button>
+        <button class="submitBtn" type="submit" id="sendmailsbutton" name="sendemails">Submit</button>
 
 </form>
      </div>

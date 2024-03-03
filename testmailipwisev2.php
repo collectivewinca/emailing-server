@@ -363,11 +363,7 @@ function my_simple_crypt( $string, $action = 'e' ) {
 //-------------------------------------------------------------------------------------------
 //$AUTHORIZED_KEY = decrypt($_POST['AUTHORIZED_KEY']);
 //echo $AUTHORIZED_KEY;die;
-if($_POST['AUTHORIZED_KEY']){
-$passkey = (my_simple_crypt($_POST['AUTHORIZED_KEY'],'d'));
-//echo $passkey;die;
-if($passkey=="DIPAKAUTHORIZEDKEY"){
-	
+
 	//print_r($_POST);die;
 	
 $ip = trim($_POST['ipaddress']);
@@ -604,8 +600,8 @@ if($ipaddress && $hostnameofip)
         }// for loop of count end here
     }
 }
-}
-}
+
+
 echo $ret;
 //}
 
@@ -785,12 +781,9 @@ $message = convertallalpha_uppercase($message);
 		//echo "Header -".$headers."<br>\n";
 //echo "Body -".$message;
 		//die; 
-		//echo $hostnameofip;die;
-        if($smtp = fsockopen("127.0.0.1",2525))
-	{
+		
 		//fputs($smtp,"helo  \r\n");
 				$setheloip=$GLOBALS['heloip'];
-				$setheloip=str_replace("__ip",$host,$setheloip);
 				fputs($smtp,"helo ".$setheloip." \r\n");
 				//fputs($smtp,"helo ".$GLOBALS['heloip']." \r\n");
                 $line = fgets($smtp, 1024);
@@ -812,12 +805,7 @@ $message = convertallalpha_uppercase($message);
                 fputs($smtp, "QUIT\r\n");
                 fclose($smtp);  
                 return 1;    
-        }
-        else{
-                //echo "!! Error, can't connect to the server $host";
-                //$errcount++;
-                return 0;
-        }
+     
 
 		
 		//return 1;
